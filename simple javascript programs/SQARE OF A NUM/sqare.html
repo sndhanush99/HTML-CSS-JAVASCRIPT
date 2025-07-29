@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Square Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #2196F3;
+        }
+        button {
+            background-color: #2196F3;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1E88E5;
+        }
+    </style>
+    <script>
+        // Function to generate a table of numbers and their squares
+        function generateSquareTable() {
+            let n = prompt("Enter a number to generate the square table:");
+            n = parseInt(n); // Convert the input to an integer
+
+            if (isNaN(n) || n <= 0) {
+                alert("Please enter a valid positive number.");
+                return;
+            }
+
+            let squaresTable = "";
+            for (let i = 1; i <= n; i++) {
+                squaresTable += "Number: " + i + ", Square: " + (i * i) + "\n";
+            }
+
+            alert("Number and Square Table:\n" + squaresTable);
+        }
+    </script>
+</head>
+<body>
+    <h1>Square Table</h1>
+    <button onclick="generateSquareTable()">Generate Square Table</button>
+</body>
+</html>

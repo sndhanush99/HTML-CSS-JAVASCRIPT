@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Puzzle</title>
+</head>
+<body>
+    <h2>Word Puzzle: Unscramble the Word</h2>
+    <p id="puzzleWord">dnrae</p>
+    <input type="text" id="userInput" placeholder="Enter the word">
+    <button onclick="checkWord()">Check</button>
+    <p id="feedback"></p>
+
+    <script>
+        const word = "garden";
+        
+        function checkWord() {
+            let input = document.getElementById("userInput").value.toLowerCase();
+            if (input === word) {
+                document.getElementById("feedback").innerText = "Correct!";
+            } else {
+                document.getElementById("feedback").innerText = "Try again!";
+            }
+        }
+    </script>
+</body>
+</html>

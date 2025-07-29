@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Finder</title>
+</head>
+<body>
+    <h2>Color Finder (RGB to Color)</h2>
+    <input type="number" id="r" placeholder="R (0-255)" min="0" max="255">
+    <input type="number" id="g" placeholder="G (0-255)" min="0" max="255">
+    <input type="number" id="b" placeholder="B (0-255)" min="0" max="255">
+    <button onclick="findColor()">Show Color</button>
+    <div id="colorBox" style="width: 500px; height: 500px;"></div>
+
+    <script>
+        function findColor() {
+            let r = document.getElementById("r").value;
+            let g = document.getElementById("g").value;
+            let b = document.getElementById("b").value;
+            document.getElementById("colorBox").style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+        }
+    </script>
+</body>
+</html>

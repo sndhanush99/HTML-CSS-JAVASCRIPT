@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+</head>
+<body>
+    <h2>Quiz: What's the capital of France?</h2>
+    <label>
+        <input type="radio" name="answer" value="Paris"> Paris
+    </label><br>
+    <label>
+        <input type="radio" name="answer" value="London"> London
+    </label><br>
+    <label>
+        <input type="radio" name="answer" value="Berlin"> Berlin
+    </label><br>
+    <button onclick="checkAnswer()">Submit</button>
+    <p id="quizFeedback"></p>
+
+    <script>
+        function checkAnswer() {
+            let selectedOption = document.querySelector('input[name="answer"]:checked');
+            if (!selectedOption) {
+                alert("Please select an answer!");
+                return;
+            }
+            let answer = selectedOption.value;
+            if (answer === "Paris") {
+                document.getElementById("quizFeedback").innerText = "Correct!";
+            } else {
+                document.getElementById("quizFeedback").innerText = "Incorrect, try again!";
+            }
+        }
+    </script>
+</body>
+</html>

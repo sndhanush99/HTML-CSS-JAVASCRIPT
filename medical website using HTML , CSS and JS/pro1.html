@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Generated Medical Report</title>
+  <style>
+    :root {
+      --primary-bg: #f0f4f7;
+      --nav-bg: rgba(0, 59, 139, 0.9);
+      --text-color: #000;
+    }
+
+    body.dark-mode {
+      --primary-bg: #1a1a1a;
+      --nav-bg: rgba(0, 0, 0, 0.9);
+      --text-color: #f0f0f0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--primary-bg);
+      color: var(--text-color);
+      background-image: url('ai_bot_pattern.png');
+      background-size: 100px 100px;
+      background-repeat: repeat;
+      background-attachment: fixed;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 98%;
+      background-color: var(--nav-bg);
+      padding: 25px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 999;
+    }
+
+    nav h2 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    nav .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      font-weight: bold;
+      font-size: 16px;
+      color: white;
+      cursor: pointer;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+    }
+
+    nav ul li a:hover,
+    nav ul li:hover {
+      color: #ffbb00;
+    }
+
+    .toggle-switch {
+      cursor: pointer;
+      font-size: 14px;
+      background-color: #ffbb00;
+      color: #000;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: bold;
+      user-select: none;
+    }
+
+    .page-title {
+      text-align: center;
+      color: #0a3a78;
+      padding-top: 110px;
+    }
+
+    .page-title h1 {
+      font-size: 32px;
+      margin: 0;
+    }
+
+    .page-title p {
+      font-size: 16px;
+      margin-top: 8px;
+    }
+
+    .main-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 50px 20px 30px;
+      flex-wrap: wrap;
+      background-color: rgba(255, 255, 255, 0.85);
+      margin: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 40px;
+    }
+
+    .intro-text {
+      flex: 1;
+      min-width: 300px;
+      padding: 70px;
+    }
+
+    .intro-text h2 {
+      font-size: 36px;
+      color: #004aad;
+      margin-bottom: 20px;
+    }
+
+    .intro-text p {
+      font-size: 16px;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .intro-image {
+      flex: 1;
+      min-width: 250px;
+      padding: 50px;
+    }
+
+    .intro-image img {
+      width: 100%;
+      max-width: 350px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .search-bar-container {
+      text-align: center;
+      margin: 20px;
+    }
+
+    .search-bar {
+      width: 300px;
+      padding: 10px 15px;
+      border-radius: 25px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .cancer-boxes {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin: 40px;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .cancer-box {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 230px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cancer-box:hover {
+      transform: scale(1.05);
+      cursor: pointer;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .cancer-box img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .cancer-box h3 {
+      font-size: 20px;
+      color: #004aad;
+      margin-bottom: 10px;
+    }
+
+    .cancer-box p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    #contact {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    #contact h2 {
+      font-size: 28px;
+      color: #004aad;
+    }
+
+    footer {
+      margin-top: auto;
+      background-color: var(--nav-bg);
+      color: white;
+      text-align: center;
+      padding: 15px 10px;
+      font-size: 14px;
+      box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Login Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 30px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .modal-content input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+
+    .modal-content button {
+      background-color: #004aad;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .close {
+      float: right;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <h2>Med AI</h2>
+    <div class="nav-right">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#reports">Reports</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li onclick="openLogin()">Login</li>
+      </ul>
+      <div class="toggle-switch" onclick="toggleDarkMode()">Dark Mode</div>
+    </div>
+  </nav>
+
+  <!-- Home Section -->
+  <div id="home" class="page-title">
+  </div>
+
+  <!-- About Section -->
+  <section id="about" class="main-section">
+    <div class="intro-text">
+      <h2>Welcome to the AI Medical Report Generator</h2>
+      <p>Our AI system assists doctors in generating quick and accurate cancer diagnosis reports by analyzing CT and medical imaging. Choose your diagnostic option below to get started.</p>
+    </div>
+    <div class="intro-image">
+      <img src="doctoe bot.png" alt="AI Doctor Bot" />
+    </div>
+  </section>
+
+  <!-- Search -->
+  <div class="search-bar-container">
+    <input type="text" class="search-bar" id="searchInput" onkeyup="filterBoxes()" placeholder="Search cancer types...">
+  </div>
+
+  <!-- Reports Section -->
+  <section id="reports" class="cancer-boxes">
+
+    <div class="cancer-box" onclick="location.href='chest-cancer-report.html'">
+        <img src="chest.png" alt="Chest Cancer">
+        <h3>Chest Cancer</h3>
+        <p>Analyzing lung and chest CT scans to detect anomalies using deep learning.</p>
+      </div>
+      <div class="cancer-box">
+        <img src="breast.png" alt="Breast Cancer">
+        <h3>Breast Cancer</h3>
+        <p>Early detection from mammograms for better treatment outcomes.</p>
+      </div>
+      <div class="cancer-box">
+        <img src="skin.png" alt="Skin Cancer">
+        <h3>Skin Cancer</h3>
+        <p>AI-powered diagnosis of melanoma and other skin conditions.</p>
+      </div>
+      <div class="cancer-box">
+        <img src="brain.png" alt="Brain Tumor">
+        <h3>Brain Tumor</h3>
+        <p>Scan analysis to detect tumors and classify brain abnormalities.</p>
+      </div>
+      <div class="cancer-box">
+        <img src="Prostate .png" alt="Prostate Cancer">
+        <h3>Prostate Cancer</h3>
+        <p>Detection through MRI and lab results interpretation.</p>
+      </div>
+      <div class="cancer-box">
+        <img src="bone.png" alt="Bone Cancer">
+        <h3>Bone Cancer</h3>
+        <p>Imaging analysis for primary and metastatic bone cancers.</p>
+      </div>
+      <div class="cancer-box">
+        <img src="liver.png" alt="Liver Cancer">
+        <h3>Liver Cancer</h3>
+        <p>AI-based detection of hepatocellular carcinoma from CT/MRI scans.</p>
+      </div>
+      <div class="cancer-box">
+        <img src="Kidney.png" alt="Kidney Cancer">
+        <h3>Kidney Cancer</h3>
+        <p>Image analysis for early signs of renal cell carcinoma.</p>
+      </div>
+      <div class="cancer-box">
+        <img src="Cervical.png" alt="Cervical Cancer">
+        <h3>Cervical Cancer</h3>
+        <p>AI support for identifying cervical abnormalities and risk factors.</p>
+      </div>
+      <div class="cancer-box">
+        <img src="pancreas.png" alt="Pancreatic Cancer">
+        <h3>Pancreatic Cancer</h3>
+        <p>Detection of tumors in pancreatic regions via imaging.</p>
+      </div>
+      <div class="cancer-box">
+        <img src="stomach.jpg" alt="Stomach Cancer">
+        <h3>Stomach Cancer</h3>
+        <p>AI model to assist in identifying gastric cancer via endoscopy scans.</p>
+      </div>
+      <div class="cancer-box">
+        <img src="bladder.png" alt="Bladder Cancer">
+        <h3>Bladder Cancer</h3>
+        <p>Early recognition of bladder abnormalities through AI imaging tools.</p>
+      </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+  </section>
+
+  <footer>
+    <p>&copy; 2025 MedAI - AI Chest Cancer Report Generator. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeLogin()">&times;</span>
+      <h2>Login</h2>
+      <input type="email" placeholder="Email" id="loginEmail">
+      <input type="password" placeholder="Password" id="loginPassword">
+      <button onclick="handleLogin()">Login</button>
+    </div>
+  </div>
+
+
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+
+    function filterBoxes() {
+      const input = document.getElementById('searchInput');
+      const filter = input.value.toLowerCase();
+      const boxes = document.querySelectorAll('.cancer-box');
+      boxes.forEach(box => {
+        const title = box.querySelector('h3').innerText.toLowerCase();
+        box.style.display = title.includes(filter) ? '' : 'none';
+      });
+    }
+
+    function openLogin() {
+      document.getElementById('loginModal').style.display = 'block';
+    }
+
+    function closeLogin() {
+      document.getElementById('loginModal').style.display = 'none';
+    }
+
+    function handleLogin() {
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      alert(`Logging in with ${email}`);
+      closeLogin();
+    }
+
+    // Close modal if clicked outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('loginModal');
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>

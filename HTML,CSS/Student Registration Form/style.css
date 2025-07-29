@@ -1,0 +1,14 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #6ae2fa;
+    margin: 0;
+}
+h1{
+color:brown;
+}
+button:hover {
+    background-color: #0056b3;
+}
+p{
+    color: #0056b3;
+}
